@@ -1,6 +1,8 @@
 package usecase
 
 import (
+	"time"
+
 	"github.com/Soyaib10/clean-blog-demo/internal/domain"
 	"github.com/Soyaib10/clean-blog-demo/internal/repository"
 )
@@ -17,10 +19,14 @@ func NewUserUsecase(userRepo repository.UserRepository) *UserUsecase {
 
 func (uc *UserUsecase) CreateUser(name, email string) (*domain.User, error) {
 	user := &domain.User{
-		ID:    generateID(),
-		Name:  name,
-		Email: email,
-		// CreatedAt: time.Now(),
+		ID:        generateID(),
+		Name:      name,
+		Email:     email,
+		CreatedAt: time.Now(),
+	}
+
+	if err := user.Validate(); err != nil {
+		return nil, err
 	}
 
 	if err := uc.userRepo.Create(user); err != nil {
