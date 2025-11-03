@@ -5,7 +5,7 @@ import (
 )
 
 type PostRepository interface {
-	Create(post *domain.Comment) error
+	Create(post *domain.Post) error
 	GetByID(id string) (*domain.Post, error)
 	ListByUser(userID string) ([]*domain.Post, error)
 }

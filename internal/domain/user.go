@@ -3,12 +3,14 @@ package domain
 import (
 	"errors"
 	"regexp"
+	"time"
 )
 
 type User struct {
-	ID    string
-	Name  string
-	Email string
+	ID        string
+	Name      string
+	Email     string
+	CreatedAt time.Time
 }
 
 // Validate checks if the user data is valid

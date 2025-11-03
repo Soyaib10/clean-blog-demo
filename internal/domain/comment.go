@@ -1,12 +1,16 @@
 package domain
 
-import "errors"
+import (
+	"errors"
+	"time"
+)
 
 type Comment struct {
-	ID      string
-	PostID  string
-	UserID  string
-	Content string
+	ID        string
+	PostID    string
+	UserID    string
+	Content   string
+	CreatedAt time.Time
 }
 
 // Validate ensures comment data is valid
