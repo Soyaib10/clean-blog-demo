@@ -5,7 +5,7 @@ import (
 
 	"github.com/Soyaib10/clean-blog-demo/internal/domain"
 	"github.com/Soyaib10/clean-blog-demo/internal/repository"
-	"github.com/Soyaib10/clean-blog-demo/internal/usecase/helpers"
+	"github.com/Soyaib10/clean-blog-demo/pkg/helpers"
 )
 
 type userUsecase struct {
