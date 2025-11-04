@@ -7,15 +7,20 @@ import (
 	"github.com/Soyaib10/clean-blog-demo/internal/repository"
 )
 
-type CommentUsecase struct {
+type CommentUsecase interface {
+	CreateComment(postID, userID, content string) (*domain.Comment, error)
+	 ListComments(postID string) ([]*domain.Comment, error)
+}
+
+type commentUsecase struct {
 	commentRepo repository.CommentRepository
 }
 
-func NewCommentUsecase(commentRepo repository.CommentRepository) *CommentUsecase {
-	return &CommentUsecase{commentRepo: commentRepo}
+func NewCommentUsecase(commentRepo repository.CommentRepository) CommentUsecase {
+	return &commentUsecase{commentRepo: commentRepo}
 }
 
-func (uc *CommentUsecase) CreateComment(postID, userID, content string) (*domain.Comment, error) {
+func (uc *commentUsecase) CreateComment(postID, userID, content string) (*domain.Comment, error) {
 	comment := &domain.Comment{
 		ID:        generateID(),
 		PostID:    postID,
@@ -35,6 +40,6 @@ func (uc *CommentUsecase) CreateComment(postID, userID, content string) (*domain
 	return comment, nil
 }
 
-func (uc *CommentUsecase) ListComments(postID string) ([]*domain.Comment, error) {
+func (uc *commentUsecase) ListComments(postID string) ([]*domain.Comment, error) {
 	return uc.commentRepo.ListByPost(postID)
 }

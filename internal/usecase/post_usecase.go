@@ -7,15 +7,21 @@ import (
 	"github.com/Soyaib10/clean-blog-demo/internal/repository"
 )
 
-type PostUsecase struct {
+type PostUsecase interface {
+	CreatePost(title, content, userID string) (*domain.Post, error)
+	GetPost(id string) (*domain.Post, error)
+	ListPostsByUser(userID string) ([]*domain.Post, error)
+}
+
+type postUsecase struct {
 	postRepo repository.PostRepository
 }
 
-func NewPostUsecase(postRepo repository.PostRepository) *PostUsecase {
-	return &PostUsecase{postRepo: postRepo}
+func NewPostUsecase(postRepo repository.PostRepository) PostUsecase {
+	return &postUsecase{postRepo: postRepo}
 }
 
-func (uc *PostUsecase) CreatePost(title, content, userID string) (*domain.Post, error) {
+func (uc *postUsecase) CreatePost(title, content, userID string) (*domain.Post, error) {
 	post := &domain.Post{
 		ID:        generateID(),
 		Title:     title,
@@ -35,10 +41,10 @@ func (uc *PostUsecase) CreatePost(title, content, userID string) (*domain.Post, 
 	return post, nil
 }
 
-func (uc *PostUsecase) GetPost(id string) (*domain.Post, error) {
+func (uc *postUsecase) GetPost(id string) (*domain.Post, error) {
 	return uc.postRepo.GetByID(id)
 }
 
-func (uc *PostUsecase) ListPostsByUser(userID string) ([]*domain.Post, error) {
+func (uc *postUsecase) ListPostsByUser(userID string) ([]*domain.Post, error) {
 	return uc.postRepo.ListByUser(userID)
 }

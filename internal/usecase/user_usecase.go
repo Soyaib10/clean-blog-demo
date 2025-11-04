@@ -7,17 +7,23 @@ import (
 	"github.com/Soyaib10/clean-blog-demo/internal/repository"
 )
 
-type UserUsecase struct {
+type UserUsecase interface {
+	CreateUser(name, email string) (*domain.User, error)
+	GetUser(id string) (*domain.User, error)
+	ListUsers() ([]*domain.User, error)
+}
+
+type userUsecase struct {
 	userRepo repository.UserRepository
 }
 
-func NewUserUsecase(userRepo repository.UserRepository) *UserUsecase {
-	return &UserUsecase{
+func NewUserUsecase(userRepo repository.UserRepository) UserUsecase {
+	return &userUsecase{
 		userRepo: userRepo,
 	}
 }
 
-func (uc *UserUsecase) CreateUser(name, email string) (*domain.User, error) {
+func (uc *userUsecase) CreateUser(name, email string) (*domain.User, error) {
 	user := &domain.User{
 		ID:        generateID(),
 		Name:      name,
@@ -36,10 +42,10 @@ func (uc *UserUsecase) CreateUser(name, email string) (*domain.User, error) {
 	return user, nil
 }
 
-func (uc *UserUsecase) GetUser(id string) (*domain.User, error) {
+func (uc *userUsecase) GetUser(id string) (*domain.User, error) {
 	return uc.userRepo.GetByID(id)
 }
 
-func (uc *UserUsecase) ListUsers() ([]*domain.User, error) {
+func (uc *userUsecase) ListUsers() ([]*domain.User, error) {
 	return uc.userRepo.List()
 }
