@@ -12,7 +12,9 @@ import (
 	postHandler "github.com/Soyaib10/clean-blog-demo/internal/delivery/http/post"
 	userHandler "github.com/Soyaib10/clean-blog-demo/internal/delivery/http/user"
 	"github.com/Soyaib10/clean-blog-demo/internal/infra/postgres"
-	"github.com/Soyaib10/clean-blog-demo/internal/usecase"
+	"github.com/Soyaib10/clean-blog-demo/internal/usecase/user"
+	"github.com/Soyaib10/clean-blog-demo/internal/usecase/post"
+	"github.com/Soyaib10/clean-blog-demo/internal/usecase/comment"
 )
 
 func main() {
@@ -27,9 +29,10 @@ func main() {
 	commentRepo := postgres.NewCommentRepo(db)
 
 	// Usecases
-	userUC := usecase.NewUserUsecase(userRepo)
-	postUC := usecase.NewPostUsecase(postRepo)
-	commentUC := usecase.NewCommentUsecase(commentRepo)
+	// userUC := usecase.NewUserUsecase(userRepo)
+	userUC := user.NewUserUsecase(userRepo)
+	postUC := post.NewPostUsecase(postRepo)
+	commentUC := comment.NewCommentUsecase(commentRepo)
 
 	// Handlers
 	h := &router.Handlers{

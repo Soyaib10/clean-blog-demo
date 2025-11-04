@@ -1,17 +1,12 @@
-package usecase
+package user
 
 import (
 	"time"
 
 	"github.com/Soyaib10/clean-blog-demo/internal/domain"
 	"github.com/Soyaib10/clean-blog-demo/internal/repository"
+	"github.com/Soyaib10/clean-blog-demo/internal/usecase/helpers"
 )
-
-type UserUsecase interface {
-	CreateUser(name, email string) (*domain.User, error)
-	GetUser(id string) (*domain.User, error)
-	ListUsers() ([]*domain.User, error)
-}
 
 type userUsecase struct {
 	userRepo repository.UserRepository
@@ -25,7 +20,7 @@ func NewUserUsecase(userRepo repository.UserRepository) UserUsecase {
 
 func (uc *userUsecase) CreateUser(name, email string) (*domain.User, error) {
 	user := &domain.User{
-		ID:        generateID(),
+		ID:        helpers.GenerateID(),
 		Name:      name,
 		Email:     email,
 		CreatedAt: time.Now(),

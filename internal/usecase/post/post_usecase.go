@@ -1,17 +1,12 @@
-package usecase
+package post
 
 import (
 	"time"
 
 	"github.com/Soyaib10/clean-blog-demo/internal/domain"
 	"github.com/Soyaib10/clean-blog-demo/internal/repository"
+	"github.com/Soyaib10/clean-blog-demo/internal/usecase/helpers"
 )
-
-type PostUsecase interface {
-	CreatePost(title, content, userID string) (*domain.Post, error)
-	GetPost(id string) (*domain.Post, error)
-	ListPostsByUser(userID string) ([]*domain.Post, error)
-}
 
 type postUsecase struct {
 	postRepo repository.PostRepository
@@ -23,7 +18,7 @@ func NewPostUsecase(postRepo repository.PostRepository) PostUsecase {
 
 func (uc *postUsecase) CreatePost(title, content, userID string) (*domain.Post, error) {
 	post := &domain.Post{
-		ID:        generateID(),
+		ID:        helpers.GenerateID(),
 		Title:     title,
 		Content:   content,
 		UserID:    userID,

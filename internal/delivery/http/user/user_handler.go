@@ -5,15 +5,15 @@ import (
 	"net/http"
 
 	"github.com/Soyaib10/clean-blog-demo/internal/delivery/http/dto"
-	"github.com/Soyaib10/clean-blog-demo/internal/usecase"
+	"github.com/Soyaib10/clean-blog-demo/internal/usecase/user"
 	"github.com/gorilla/mux"
 )
 
 type Handler struct {
-	uc usecase.UserUsecase
+	uc user.UserUsecase
 }
 
-func NewHandler(uc usecase.UserUsecase) *Handler {
+func NewHandler(uc user.UserUsecase) *Handler {
 	return &Handler{
 		uc: uc,
 	}

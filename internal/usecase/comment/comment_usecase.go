@@ -1,16 +1,12 @@
-package usecase
+package comment
 
 import (
 	"time"
 
 	"github.com/Soyaib10/clean-blog-demo/internal/domain"
 	"github.com/Soyaib10/clean-blog-demo/internal/repository"
+	"github.com/Soyaib10/clean-blog-demo/internal/usecase/helpers"
 )
-
-type CommentUsecase interface {
-	CreateComment(postID, userID, content string) (*domain.Comment, error)
-	 ListComments(postID string) ([]*domain.Comment, error)
-}
 
 type commentUsecase struct {
 	commentRepo repository.CommentRepository
@@ -22,7 +18,7 @@ func NewCommentUsecase(commentRepo repository.CommentRepository) CommentUsecase 
 
 func (uc *commentUsecase) CreateComment(postID, userID, content string) (*domain.Comment, error) {
 	comment := &domain.Comment{
-		ID:        generateID(),
+		ID:        helpers.GenerateID(),
 		PostID:    postID,
 		UserID:    userID,
 		Content:   content,

@@ -6,15 +6,15 @@ import (
 	"time"
 
 	"github.com/Soyaib10/clean-blog-demo/internal/delivery/http/dto"
-	"github.com/Soyaib10/clean-blog-demo/internal/usecase"
+	"github.com/Soyaib10/clean-blog-demo/internal/usecase/comment"
 	"github.com/gorilla/mux"
 )
 
 type Handler struct {
-	uc usecase.CommentUsecase
+	uc comment.CommentUsecase
 }
 
-func NewHandler(uc usecase.CommentUsecase) *Handler {
+func NewHandler(uc comment.CommentUsecase) *Handler {
 	return &Handler{
 		uc: uc,
 	}
