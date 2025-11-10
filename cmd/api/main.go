@@ -29,7 +29,6 @@ func main() {
 	commentRepo := postgres.NewCommentRepo(db)
 
 	// Usecases
-	// userUC := usecase.NewUserUsecase(userRepo)
 	userUC := user.NewUserUsecase(userRepo)
 	postUC := post.NewPostUsecase(postRepo)
 	commentUC := comment.NewCommentUsecase(commentRepo)
